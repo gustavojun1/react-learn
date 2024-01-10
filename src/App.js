@@ -1,18 +1,16 @@
 import "./styles.css";
 import Navbar from "./components/Navbar/Navbar";
+import TaskList from "./components/TaskList/TaskList";
 
 export default function App() {
   // multi-line returns (which are 99% of the cases) must lie between parenthesis
   return (
     <div className="App">
-      {/*O componente em questão é instanciado como uma self closing tag, ou seja, uma tag de uma linha só que não precisa de um bloco propriamente dito*/}
+      {/*Os componentes a seguir são instanciados como self closing tags, ou seja, tags de uma linha só que não precisam de um bloco propriamente dito*/}
       <Navbar />
-      <h1>Hello World</h1>
-      <h2>Learning react</h2>
-      <ul className="lista">
-        <li>item1</li>
-        <li>item2</li>
-      </ul>
+      <TaskList title="Pendente" />
+      <TaskList title="Em andamento" />
+      <TaskList title="Completa" />
     </div>
   );
 }
