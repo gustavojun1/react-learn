@@ -8,9 +8,11 @@ export default function App() {
     <div className="App">
       {/*Os componentes a seguir são instanciados como self closing tags, ou seja, tags de uma linha só que não precisam de um bloco propriamente dito*/}
       <Navbar />
-      <TaskList title="Pendente" />
-      <TaskList title="Em andamento" />
-      <TaskList title="Completa" />
+      <div className="container">
+        <TaskList title="Pendente" />
+        <TaskList title="Em andamento" />
+        <TaskList title="Completa" />
+      </div>
     </div>
   );
 }
