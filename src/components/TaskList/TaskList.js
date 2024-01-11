@@ -3,21 +3,22 @@ import React, { useState } from "react";
 import "./tasklist.css";
 import PropTypes from "prop-types";
 
-export default function TaskList({ title }) {
+export default function TaskList({ title, onAddTask, tasks }) {
   const [count, setCount] = useState(0);
 
-  const increment = () => {
-    setCount((currentCount) => {
-      return currentCount + 1;
-    });
+  const addTask = () => {
+    console.log("função chamada em tasklist");
+    onAddTask("Nova Tarefa", "Pendente");
   };
 
   return (
     <div className="tasklist">
       <div className="title">{title}</div>
       <div className="content">
-        {count}
-        <button onClick={increment}>Incrementar</button>
+        {tasks.map((task) => {
+          return <div key={task.id}>{task.title}</div>;
+        })}
+        <button onClick={addTask}>Adicionar Tarefa</button>
       </div>
     </div>
   );
@@ -25,4 +26,6 @@ export default function TaskList({ title }) {
 
 TaskList.propTypes = {
   title: PropTypes.string.isRequired,
+  onAddTask: PropTypes.func.isRequired,
+  tasks: PropTypes.array.isRequired,
 };
