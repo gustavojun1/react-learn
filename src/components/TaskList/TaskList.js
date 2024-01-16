@@ -10,6 +10,7 @@ export default function TaskList({
   tasks,
   onTaskUpdate,
   listState,
+  onTaskDelete,
 }) {
   const [count, setCount] = useState(0);
 
@@ -30,6 +31,7 @@ export default function TaskList({
               title={task.title}
               state={task.state}
               onTaskUpdate={onTaskUpdate}
+              onTaskDelete={onTaskDelete}
             />
           );
         })}
@@ -45,4 +47,5 @@ TaskList.propTypes = {
   tasks: PropTypes.array.isRequired,
   onTaskUpdate: PropTypes.func.isRequired,
   listState: PropTypes.string.isRequired,
+  onTaskDelete: PropTypes.func.isRequired,
 };

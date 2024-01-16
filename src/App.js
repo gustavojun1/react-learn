@@ -38,6 +38,12 @@ export default function App() {
     });
   };
 
+  const deleteTask = (id) => {
+    setTasks((existingTasks) => {
+      return tasks.filter((task) => task.id !== id);
+    });
+  };
+
   // multi-line returns (which are 99% of the cases) must lie between parenthesis
   return (
     <div className="App">
@@ -50,6 +56,7 @@ export default function App() {
           tasks={tasks.filter((task) => task.state === "Pendente")}
           onTaskUpdate={updateTask}
           listState="Pendente"
+          onTaskDelete={deleteTask}
         />
         <TaskList
           title="Em andamento"
@@ -57,6 +64,7 @@ export default function App() {
           tasks={tasks.filter((task) => task.state === "Em andamento")}
           onTaskUpdate={updateTask}
           listState="Em andamento"
+          onTaskDelete={deleteTask}
         />
         <TaskList
           title="Completa"
@@ -64,6 +72,7 @@ export default function App() {
           tasks={tasks.filter((task) => task.state === "Completa")}
           onTaskUpdate={updateTask}
           listState="Completa"
+          onTaskDelete={deleteTask}
         />
       </div>
     </div>

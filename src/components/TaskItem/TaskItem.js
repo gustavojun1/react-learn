@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./task-item.css";
 import PropTypes from "prop-types";
 
-export default function TaskItem({ id, title, state, onTaskUpdate }) {
+export default function TaskItem({ id, title, state, onTaskUpdate, onTaskDelete }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editableTitle, setEditableTitle] = useState(title);
 
@@ -13,8 +13,10 @@ export default function TaskItem({ id, title, state, onTaskUpdate }) {
   };
 
   const onKeyDown = (e) => {
-    if (e.key === "Enter") {
+    if(e.key === "Enter") {
       setIsEditing(false);
+      if(editableTitle.length == 0)
+        onTaskDelete(id);
     }
   };
 
@@ -33,7 +35,7 @@ export default function TaskItem({ id, title, state, onTaskUpdate }) {
     );
   } else {
     return (
-      <div>
+      <div className="task-item">
         <div onClick={(event) => setIsEditing(true)}>{title}</div>
         <select onChange={onTaskStateChange} value={state}>
           <option value="Pendente">Pendente</option>
