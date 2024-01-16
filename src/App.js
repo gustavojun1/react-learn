@@ -6,14 +6,14 @@ import TaskList from "./components/TaskList/TaskList";
 // "let" é utilizado quando desejamos declarar uma variável mutável, mas com escopo local apenas
 let count = 0;
 const generateId = () => {
-  return count + 1;
+  count++;
+  return count;
 };
 
 export default function App() {
   const [tasks, setTasks] = useState([]);
 
   const addTask = (title, state) => {
-    console.log("função chamada em app");
     const newTask = {
       id: generateId(),
       title,
@@ -24,15 +24,47 @@ export default function App() {
       return [...existingTasks, newTask];
     });
   };
+
+  const updateTask = (id, title, state) => {
+    setTasks((existingTasks) => {
+      // para todas as tasks existentes, retorna a sem alteração a não ser quando chegamos no id da task a ser alterada
+      return existingTasks.map((task) => {
+        if (task.id === id) {
+          return { ...task, title, state };
+        } else {
+          return task;
+        }
+      });
+    });
+  };
+
   // multi-line returns (which are 99% of the cases) must lie between parenthesis
   return (
     <div className="App">
       {/*Os componentes a seguir são instanciados como self closing tags, ou seja, tags de uma linha só que não precisam de um bloco propriamente dito*/}
       <Navbar />
       <div className="container">
-        <TaskList title="Pendente" onAddTask={addTask} tasks={tasks} />
-        <TaskList title="Em andamento" onAddTask={addTask} tasks={tasks} />
-        <TaskList title="Completa" onAddTask={addTask} tasks={tasks} />
+        <TaskList
+          title="Pendente"
+          onAddTask={addTask}
+          tasks={tasks.filter((task) => task.state === "Pendente")}
+          onTaskUpdate={updateTask}
+          listState="Pendente"
+        />
+        <TaskList
+          title="Em andamento"
+          onAddTask={addTask}
+          tasks={tasks.filter((task) => task.state === "Em andamento")}
+          onTaskUpdate={updateTask}
+          listState="Em andamento"
+        />
+        <TaskList
+          title="Completa"
+          onAddTask={addTask}
+          tasks={tasks.filter((task) => task.state === "Completa")}
+          onTaskUpdate={updateTask}
+          listState="Completa"
+        />
       </div>
     </div>
   );
