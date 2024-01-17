@@ -1,8 +1,9 @@
 // useState é importado usando chaves (desestruturação) para especificar o nome exato do import
-import React, { useState } from "react";
+import React from "react";
 import "./tasklist.css";
 import PropTypes from "prop-types";
 import TaskItem from "../TaskItem/TaskItem";
+import plusIcon from "../../img/plus-icon.svg";
 
 export default function TaskList({
   title,
@@ -12,8 +13,6 @@ export default function TaskList({
   listState,
   onTaskDelete,
 }) {
-  const [count, setCount] = useState(0);
-
   const addTask = () => {
     console.log("função chamada em tasklist");
     onAddTask("Nova Tarefa", listState);
@@ -35,7 +34,10 @@ export default function TaskList({
             />
           );
         })}
-        <button onClick={addTask}>Adicionar Tarefa</button>
+        <button onClick={addTask} className="btn">
+          <img src={plusIcon} alt="plus" />
+          Adicionar Tarefa
+        </button>
       </div>
     </div>
   );

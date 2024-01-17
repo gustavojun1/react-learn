@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import "./task-item.css";
 import PropTypes from "prop-types";
 
-export default function TaskItem({ id, title, state, onTaskUpdate, onTaskDelete }) {
+export default function TaskItem({
+  id,
+  title,
+  state,
+  onTaskUpdate,
+  onTaskDelete,
+}) {
   const [isEditing, setIsEditing] = useState(false);
   const [editableTitle, setEditableTitle] = useState(title);
 
@@ -13,36 +19,38 @@ export default function TaskItem({ id, title, state, onTaskUpdate, onTaskDelete 
   };
 
   const onKeyDown = (e) => {
-    if(e.key === "Enter") {
+    if (e.key === "Enter") {
       setIsEditing(false);
-      if(editableTitle.length == 0)
-        onTaskDelete(id);
+      if (editableTitle.length == 0) onTaskDelete(id);
     }
   };
 
-  const onTaskStateChange  = (e) => {
+  const onTaskStateChange = (e) => {
     onTaskUpdate(id, title, e.target.value);
-  }
+  };
 
   if (isEditing) {
     return (
-      <input
-        type="text"
-        value={editableTitle}
-        onChange={onTitleChange}
-        onKeyDown={onKeyDown}
-      />
+      <div className="task-item">
+        <input
+          type="text"
+          value={editableTitle}
+          onChange={onTitleChange}
+          onKeyDown={onKeyDown}
+        />
+      </div>
     );
   } else {
     return (
       <div className="task-item">
-        <div onClick={(event) => setIsEditing(true)}>{title}</div>
+        <div onClick={() => setIsEditing(true)}>{title}</div>
         <select onChange={onTaskStateChange} value={state}>
           <option value="Pendente">Pendente</option>
           <option value="Em andamento">Em andamento</option>
           <option value="Completa">Completa</option>
         </select>
-      </div>);
+      </div>
+    );
   }
 }
 
@@ -51,4 +59,5 @@ TaskItem.propTypes = {
   title: PropTypes.string.isRequired,
   state: PropTypes.string.isRequired,
   onTaskUpdate: PropTypes.func.isRequired,
+  onTaskDelete: PropTypes.func.isRequired,
 };
